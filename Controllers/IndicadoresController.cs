@@ -34,6 +34,26 @@ namespace DigitalizacionSostenibilidad.Controllers
             return Ok(indicadores);
         }
 
+        // GET: api/indicadores/{id}
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            _logger.LogInformation("Obteniendo indicador con id {Id}", id);
+
+
+            var indicador = _indicadorService.GetById(id);
+
+
+            if (indicador == null)
+            {
+                return NotFound($"No existe ningún indicador con id {id}");
+            }
+
+
+            return Ok(indicador);
+        }
+
+
         // GET: api/indicadores/tipo/{tipo}
         [HttpGet("tipo/{tipo}")]
         public IActionResult GetByTipo(string tipo)

@@ -25,6 +25,16 @@ namespace DigitalizacionSostenibilidad
             builder.Services.AddScoped<IIndicadorRepository, IndicadorRepository>();
             builder.Services.AddScoped<IndicadorService>();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("Dev", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
+
 
             var app = builder.Build();
 
@@ -39,6 +49,7 @@ namespace DigitalizacionSostenibilidad
 
             app.UseAuthorization();
 
+            app.UseCors("Dev");
 
             app.MapControllers();
 
